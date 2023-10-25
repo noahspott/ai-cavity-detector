@@ -9,21 +9,27 @@
   font-family: Roboto, sans-serif;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  /* background-color: grey; */
+
   --accent-blue: #3188ED; 
+  --off-black: #505050;
 }
 
 #root {
-  max-width: 1280px;
   margin: 0;
+  padding: 0;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: linear-gradient(146deg, #EBEBEB 14.28%, #FFF 90.31%);
 }
 
 body {
@@ -43,11 +49,30 @@ h3 {
   font-size: 2vh;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+.blue {
+  color: var(--accent-blue);
+}
+
+.content-container {
+  min-height: 50vh;
+  min-width: 320px;
+
+  max-width: 1280px;
+  width: 75vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  background-color: white;
+}
+
+#action-text {
+  margin: 3vh 4vh;
+  text-align: center;
+  color: var(--off-black);
+  font-size: 3.5vh;
 }
 
 /*----------*/
@@ -59,6 +84,8 @@ h3 {
   height: 5vh;
   display: flex;
   align-items: center;
+
+  background-color: white;
 
   color: var(--accent-blue);
   font-size: 2vh;
@@ -72,6 +99,7 @@ h3 {
 
 #hero-container {
   height: 25vh;
+  width: 100vw;
 
   display: flex;
   flex-direction: column;
@@ -105,3 +133,17 @@ h3 {
 /*----------*/
 /*  FOOTER  */
 /*----------*/
+
+#footer-container {
+  min-height: 30vh;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+
+  color: white;
+  background-color: var(--accent-blue);
+}
+
+.footer-column {
+  margin: 2vh 3vw;
+}
