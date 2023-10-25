@@ -1,3 +1,10 @@
+/* Meyer Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   font-family: Roboto, sans-serif;
   line-height: 1.5;
@@ -11,11 +18,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  margin: 0;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -25,4 +30,18 @@ body {
     color: #213547;
     background-color: #ffffff;
   }
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0;
+}
+
+#header-container {
+  width: 100vw;
+  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.25); 
+}
+
+#upload-tooth-image {
+  width: 150px;
 }
