@@ -2,6 +2,12 @@
 This web app allows the user to upload an x-ray image and provides an 
 output image showing the areas of cavities.
 *This project was created for CMPSC 445 (Fall 2023) at PSU World Campus.*
+<br/>
+**Project Team:**
+- Michael Stanley
+- Noah Spott
+- Mason Ticehurst
+- Keian Kaserman
 
 ## Project Requirements
 ### fr-01
