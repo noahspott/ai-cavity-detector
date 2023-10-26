@@ -64,15 +64,14 @@ p {
 }
 
 .content-container {
-  min-height: 50%;
+  min-height: 15rem;
   min-width: 320px;
 
-  max-width: 1280px;
+  width: 80vw;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   
   background-color: white;
 }
@@ -211,15 +210,11 @@ p {
 }
 
 .footer-column p, li{
-  font-size: 0.5rem;
+  font-size: 0.4rem;
 }
 
 .footer-column li {
   list-style: none;
-}
-
-.footer-column br {
-  line-height: 0.5rem;
 }
 
 .footer-column h3 {
@@ -229,11 +224,6 @@ p {
 .footer-column ul {
   margin-top: 0.4rem;
 }
-
-/* li {
-  font-size: 0.6rem;
-  list-style: none;
-} */
 
 @media screen and (max-width: 768px) {
   /* CSS rules for screens up to 768px wide (e.g., mobile) */
