@@ -1,6 +1,7 @@
 # AI Cavity Detector
 This web app allows the user to upload an x-ray image and provides an 
 output image showing the areas of cavities.
+*This project was created for CMPSC 445 (Fall 2023) at PSU World Campus.*
 
 ## Project Requirements
 ### fr-01
@@ -17,8 +18,6 @@ The system should allow the user to download the images with the cavity indicato
 
 ### fr-05
 The system should preprocess the uploaded images to enhance image quality, reduce noise, and prepare the image for the ML model.
-
-*This project was created for CMPSC 445 (Fall 2023) at PSU World Campus.*
 
 ## Setting Up Development Environment
 1. Clone repository
