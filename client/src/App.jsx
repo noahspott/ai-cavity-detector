@@ -7,21 +7,26 @@ import Hero from './components/Hero'
 
 function App() {
 
+  function processButtonClick() {
+    console.log("Process Button Clicked!")
+  }
+
+  function fileUploadClick() {
+    console.log("File Upload Clicked!")
+  }
+
   return (
     <>
       <Header />
       <Hero />
-
       <div className='content-container'>
-        
-        
         <h2 id='action-text'>Try our <span className='blue'>AI Cavity Detection model</span><br/> trained on 1000+ Dental X-rays</h2>
-
-        <Upload />
+        <Upload 
+          processButtonClick={processButtonClick}
+          fileUploadClick={fileUploadClick}
+        />
         <Xray />
-
       </div>
-
       <Footer />
     </>
   )
