@@ -107,6 +107,7 @@ p {
 #hero-container {
   height: 7.5rem;
   width: 100vw;
+  min-width: 320px;
 
   display: flex;
   flex-direction: column;
@@ -145,11 +146,19 @@ p {
   color: var(--off-black);
 }
 
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
 #upload-container {
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
   align-items: center;
+
   border: 1px dashed #000;
 
   cursor: pointer;
@@ -190,6 +199,15 @@ p {
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.10);
 }
 
+.file-input {
+  display: none;
+}
+
+#image-name {
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
 /*----------*/
 /*   XRAY   */
 /*----------*/
@@ -197,6 +215,7 @@ p {
 #xray-container {
   width: 12rem;
   margin: 1rem;
+  min-width: 320px;
 
   display: flex;
   flex-direction: column;
@@ -208,7 +227,7 @@ p {
 /*----------*/
 
 #footer-container {
-  /* min-height: 7.5rem; */
+  min-width: 320px;
   display: flex;
   width: 100vw;
   justify-content: center;
