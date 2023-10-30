@@ -8,12 +8,12 @@ import Hero from './components/Hero'
 function App() {
 
   const [userImage, setUserImage] = React.useState(null)
+  const [modelOutput, setModelOutput] = React.useState(null)
 
   function processButtonClick() {
     console.log("Process Button Clicked!")
 
     console.log(userImage)
-    console.log(typeof(userImage))
   }
 
   function fileUploadClick() {
@@ -34,7 +34,8 @@ function App() {
         />
         <Xray 
           userImage={userImage}
-          modelData={null}
+          // modelImage={modelOutput.image}
+          // modelData={modelOutput.data}
         />
       </div>
       <Footer />
