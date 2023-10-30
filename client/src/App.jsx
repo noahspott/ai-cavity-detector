@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React from 'react'
 import Upload from './components/Upload'
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -7,8 +7,13 @@ import Hero from './components/Hero'
 
 function App() {
 
+  const [userImage, setUserImage] = React.useState(null)
+
   function processButtonClick() {
     console.log("Process Button Clicked!")
+
+    console.log(userImage)
+    console.log(typeof(userImage))
   }
 
   function fileUploadClick() {
@@ -22,10 +27,15 @@ function App() {
       <div className='content-container'>
         <h2 id='action-text'>Try our <span className='blue'>AI Cavity Detection model</span><br/> trained on 1000+ Dental X-rays</h2>
         <Upload 
-          processButtonClick={processButtonClick}
           fileUploadClick={fileUploadClick}
+          userImage={userImage}
+          setUserImage={setUserImage}
+          processButtonClick={processButtonClick}
         />
-        <Xray />
+        <Xray 
+          userImage={userImage}
+          modelData={null}
+        />
       </div>
       <Footer />
     </>
