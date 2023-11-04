@@ -52,7 +52,7 @@ h2 {
 }
 
 h3 {
-  font-size: 0.6em;
+  font-size: 0.8em;
 }
 
 p {
@@ -90,7 +90,7 @@ p {
 #header-container {
   width: 100vw;
   min-width: 320px;
-  height: 2rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
 
@@ -106,7 +106,7 @@ p {
 /*----------*/
 
 #hero-container {
-  height: 7.5rem;
+  height: 10rem;
   width: 100vw;
   min-width: 320px;
 
@@ -251,7 +251,7 @@ p {
 }
 
 .footer-column p, li{
-  font-size: 0.4rem;
+  font-size: 0.6rem;
 }
 
 .footer-column li {
