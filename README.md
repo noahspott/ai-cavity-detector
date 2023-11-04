@@ -28,6 +28,7 @@ The system should allow the user to download the images with the cavity indicato
 The system should preprocess the uploaded images to enhance image quality, reduce noise, and prepare the image for the ML model.
 
 ## Setting Up Development Environment
+### Client
 1. Clone repository
    
 2. Open project folder in terminal
@@ -37,3 +38,8 @@ The system should preprocess the uploaded images to enhance image quality, reduc
 4. npm run dev
 
 5. Copy the Local or Network address and paste it into your web browser.
+
+### Server
+1. Open project folder in new terminal
+
+2. python3 ./server/server.py
