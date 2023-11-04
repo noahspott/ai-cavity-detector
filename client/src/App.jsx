@@ -16,10 +16,6 @@ function App() {
     console.log(userImage)
   }
 
-  function fileUploadClick() {
-    console.log("File Upload Clicked!")
-  }
-
   return (
     <>
       <Header />
@@ -27,7 +23,6 @@ function App() {
       <div className='content-container'>
         <h2 id='action-text'>Try our <span className='blue'>AI Cavity Detection model</span><br/> trained on 1000+ Dental X-rays</h2>
         <Upload 
-          fileUploadClick={fileUploadClick}
           userImage={userImage}
           setUserImage={setUserImage}
           processButtonClick={processButtonClick}
