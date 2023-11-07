@@ -15,7 +15,7 @@ export default function FileUpload(props) {
             <div id='upload-container'>
                 <label>
                     <img id='upload-tooth-image' src="client/public/upload-tooth.jpg" alt="Upload Image" />
-                    <h3>DRAG FILE TO UPLOAD</h3>
+                    <h3>CLICK TO UPLOAD XRAY</h3>
                     {props.userImage && <p id='image-name'>{getUserImageName()}</p>}
                     <input 
                         type='file'

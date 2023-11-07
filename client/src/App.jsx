@@ -20,10 +20,9 @@ function App() {
     // TODO: make button unclickable if no userImage
 
     if(userImage){
-      console.log(userImage)
 
       const formData = new FormData();
-      formData.append('file', userImage, userImage.name);
+      formData.append('file', userImage, userImage.name)
   
       axios.post(baseURL + processEndPoint, formData, {
         headers: {
@@ -33,7 +32,7 @@ function App() {
       })
       .then(response => {
         // Assuming the response is an array buffer and needs conversion to Blob
-        const blob = new Blob([response.data], { type: 'image/png' });
+        const blob = new Blob([response.data], { type: 'image/png' })
         const objectUrl = URL.createObjectURL(blob)
         setProcessedImageUrl(objectUrl)
       })
