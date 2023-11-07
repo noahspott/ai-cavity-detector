@@ -42,4 +42,7 @@ The system should preprocess the uploaded images to enhance image quality, reduc
 ### Server
 1. Open project folder in new terminal
 
-2. python3 ./server/server.py
+2. Run
+<pre>
+python3 ./server/server.py
+</pre>
