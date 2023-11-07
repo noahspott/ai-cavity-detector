@@ -34,12 +34,8 @@ function App() {
       .then(response => {
         // Assuming the response is an array buffer and needs conversion to Blob
         const blob = new Blob([response.data], { type: 'image/png' });
-
         const objectUrl = URL.createObjectURL(blob)
-        
         setProcessedImageUrl(objectUrl)
-
-        console.log('processedImageUrl', processedImageUrl)
       })
       .catch(error => {
         console.error('Error:', error)
@@ -61,7 +57,6 @@ function App() {
         <Xray 
           userImage={userImage}
           processedImageUrl={processedImageUrl}
-          // modelData={modelOutput.data}
         />
       </div>
       <Footer />

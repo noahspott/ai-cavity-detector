@@ -25,7 +25,6 @@ def process_request():
         return "No selected file", 400
     
     if file:
-        # Process the image
         processed_img = process_image(file)
 
         # Save the processed image to a byte buffer
