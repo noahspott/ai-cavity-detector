@@ -9,7 +9,7 @@ import Hero from './components/Hero'
 function App() {
 
   const [userImage, setUserImage] = React.useState(null)
-  const [modelOutput, setModelOutput] = React.useState(null)
+  const [processedImageUrl, setProcessedImageUrl] = React.useState(null)
 
   const baseURL = 'http://127.0.0.1:5000'
   const processEndPoint = '/process'
@@ -28,10 +28,18 @@ function App() {
       axios.post(baseURL + processEndPoint, formData, {
         headers: {
           'Content-Type': 'multipart/form-data' // Set the content type to multipart form-data
-        }
+        },
+        responseType: 'arraybuffer' // Force to receive data in a Blob Format
       })
       .then(response => {
-        console.log(response.data)
+        // Assuming the response is an array buffer and needs conversion to Blob
+        const blob = new Blob([response.data], { type: 'image/png' });
+
+        const objectUrl = URL.createObjectURL(blob)
+        
+        setProcessedImageUrl(objectUrl)
+
+        console.log('processedImageUrl', processedImageUrl)
       })
       .catch(error => {
         console.error('Error:', error)
@@ -52,7 +60,7 @@ function App() {
         />
         <Xray 
           userImage={userImage}
-          // modelImage={modelOutput.image}
+          processedImageUrl={processedImageUrl}
           // modelData={modelOutput.data}
         />
       </div>
