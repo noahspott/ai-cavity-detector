@@ -1,31 +1,38 @@
 from flask import Flask, request, jsonify, send_file
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 import sys
+from io import BytesIO
+from PIL import Image
 
 app = Flask(__name__)
 CORS(app)
-frontend_domain = 'http://192.168.0.124:5173/'
-# cors = CORS(app, resources={r"/process": {"origins": frontend_domain}})
+
+def process_image(input_image):
+    """Processes and returns the xray image"""
+    img = Image.open(input_image)
+    processed_img = img.resize((50, 50))
+    return processed_img
 
 @app.route('/process', methods=['POST'])
-@cross_origin()
 def process_request():
-    user_image = request.files['file']
 
-    # Here is where we will process the image
-    print(f'user_image: {user_image}')
-    processed_user_image = process(user_image)
+    if 'file' not in request.files:
+        return "No file part in the request", 400
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return "No selected file", 400
     
-    # Then we should return the image
-    # return send_file(processed_user_image, as_attachment=True, mimetype='image/png', download_name='processed_image.png')
-    return 'Process Call Made'
+    if file:
+        processed_img = process_image(file)
 
-def process(user_image):
-    """Processes and returns the xray image"""
-    processed_user_image = user_image
+        # Save the processed image to a byte buffer
+        img_byte_array = BytesIO()
+        processed_img.save(img_byte_array, format='PNG')
+        img_byte_array.seek(0)
 
-    return processed_user_image
-
+        return send_file(img_byte_array, mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(debug=True)

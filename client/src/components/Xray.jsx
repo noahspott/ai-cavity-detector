@@ -13,8 +13,7 @@ export default function Xray(props) {
 
     return(
         <div id='xray-container'>
-            {props.userImage && <img id='xray-image' src={URL.createObjectURL(props.userImage)} alt="xray image" />}
-            {props.modelData && <p>xray data goes here</p>}
+            {props.processedImageUrl && <img id='xray-image' src={props.processedImageUrl} alt="processed image" />}
         </div>
     )
 }
