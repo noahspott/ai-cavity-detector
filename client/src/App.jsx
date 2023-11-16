@@ -10,6 +10,7 @@ function App() {
 
   const [userImage, setUserImage] = React.useState(null)
   const [processedImageUrl, setProcessedImageUrl] = React.useState(null)
+  const [tableData, setTableData] = React.useState(null)
 
   const baseURL = 'http://127.0.0.1:5000'
   const processEndPoint = '/process'
@@ -32,9 +33,24 @@ function App() {
       })
       .then(response => {
         // Assuming the response is an array buffer and needs conversion to Blob
-        const blob = new Blob([response.data], { type: 'image/png' })
+        
+        // Decode Image and pull out response data
+        var image = response.img
+        var responseData = response.results_data
+
+        //var decodedImage = atob(image)
+        //const byteNumbers = new Array(responseData.length)
+        //const byteArray = new Uint8Array(byteNumbers)
+
+        //const blob = new Blob([response.data], { type: 'image/png' })
+
+        // Create Image to display
+        const blob = image.blob()
         const objectUrl = URL.createObjectURL(blob)
         setProcessedImageUrl(objectUrl)
+
+        // Update Table Data
+        setTableData(responseData)
       })
       .catch(error => {
         console.error('Error:', error)
@@ -56,6 +72,7 @@ function App() {
         <Xray 
           userImage={userImage}
           processedImageUrl={processedImageUrl}
+          tableData={tableData}
         />
       </div>
       <Footer />

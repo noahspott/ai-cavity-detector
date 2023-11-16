@@ -14,6 +14,27 @@ export default function Xray(props) {
     return(
         <div id='xray-container'>
             {props.processedImageUrl && <img id='xray-image' src={props.processedImageUrl} alt="processed image" />}
+            {
+                props.tableData &&
+                <div>
+                    <table>
+                        <tr>
+                            <th>Tooth Name</th>
+                            <th>Disease</th>
+                            <th>IOU</th>
+                        </tr>
+                        {tableData.map((val, key) => {
+                            return (
+                                <tr key={key}>
+                                    <td>{val.name}</td>
+                                    <td>{val.age}</td>
+                                    <td>{val.gender}</td>
+                                </tr>
+                            )
+                        })}
+                    </table>
+                </div>
+            }
         </div>
     )
 }

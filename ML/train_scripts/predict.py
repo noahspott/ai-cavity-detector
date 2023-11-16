@@ -61,6 +61,7 @@ def plot(
     # List of tooth numbers that we want to actually show in detection
     should_detect = []
     disease_enum = {}
+    result_data = {}
 
     # For each diseased tooth, compute IOU against enumeration so we can classify it to a specific tooth number
     for box in disease_boxes:
@@ -75,6 +76,9 @@ def plot(
         c, conf, id = int(highestIOU.cls), float(highestIOU.conf), None if highestIOU.id is None else int(highestIOU.id.item())
         should_detect.append(enum_names[c])
         disease_enum[c] = disease_names[int(box.cls)] + " - " + str(enum_names[c])
+        tooth_data = {'disease': disease_names[int(box.cls)], 'IOU': str(highest)} # this tooth's information
+        result_data[enum_names[c]] = tooth_data # key is the tooth number - value is tooth data dict
+
         print("Matched " + disease_names[int(box.cls)] + " to " + str(enum_names[c]) + " with IOU " + str(highest))
     
     # Plot Detect results
@@ -87,9 +91,9 @@ def plot(
 
         name = ('' if id is None else f'id:{id} ') + disease_enum[c]
         label = (f'{name} ({conf:.2f})')
-        annotator.box_label(d.xyxy.squeeze(), label, color=colors(c, True))
+        annotator.box_label(d.xyxy.squeeze(), "", color=colors(c, True))
     
-    return annotator.result()
+    return (annotator.result(), result_data)
 
 def runPrediction(input):
     model_disease = YOLO('ML/models/Disease_Model_3.pt')
@@ -98,7 +102,8 @@ def runPrediction(input):
     model_enum = YOLO('ML/models/Enumeration_Model.pt')
     results_enum = model_enum(input, imgsz=1280, conf=0.5)
 
-    im_array = plot(results_disease[0], results_enum[0])
+    im_array, result_data = plot(results_disease[0], results_enum[0])
 
     im = Image.fromarray(im_array[..., ::-1])
-    return im
+
+    return (im, result_data)
