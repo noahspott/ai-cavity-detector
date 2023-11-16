@@ -92,10 +92,10 @@ def plot(
     return annotator.result()
 
 def runPrediction(input):
-    model_disease = YOLO('models/Disease_Model_3.pt')
+    model_disease = YOLO('ML/models/Disease_Model_3.pt')
     results_disease = model_disease(input, imgsz=1280, conf=0.5)
 
-    model_enum = YOLO('models/Enumeration_Model.pt')
+    model_enum = YOLO('ML/models/Enumeration_Model.pt')
     results_enum = model_enum(input, imgsz=1280, conf=0.5)
 
     im_array = plot(results_disease[0], results_enum[0])
