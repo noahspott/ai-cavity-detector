@@ -18,7 +18,7 @@ def process_image(input_image):
     # processed_img = img.resize((50, 50))    # for testing w/o ML model
     processed_img, results_data = runPrediction(img)
 
-    return processed_img
+    return processed_img, results_data
 
 @app.route('/process', methods=['POST'])
 @cross_origin()
@@ -40,9 +40,12 @@ def process_request():
         processed_img.save(img_byte_array, format='PNG')
         img_byte_array.seek(0)
         
-        b64encoded_img = base64.b64encode(img_byte_array)
+        #data = img_byte_array.read()
+        b64encoded_str = base64.b64encode(data).decode()
+
+        #b64encoded_str = base64.b64encode(img_byte_array.getvalue())
         response = {
-            'img': b64encoded_img,
+            'img': b64encoded_str,
             'results_data': results_data
         }
 

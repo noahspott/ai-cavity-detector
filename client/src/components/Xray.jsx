@@ -13,8 +13,8 @@ export default function Xray(props) {
 
     return(
         <div id='xray-container'>
-            {props.processedImageUrl && <img id='xray-image' src={props.processedImageUrl} alt="processed image" />}
-            {
+            {props.processedImageUrl && <img id='xray-image' src={"data:image/png;base64, " + props.processedImageUrl} alt="processed image" />}
+            {/* {
                 props.tableData &&
                 <div>
                     <table>
@@ -34,7 +34,7 @@ export default function Xray(props) {
                         })}
                     </table>
                 </div>
-            }
+            } */}
         </div>
     )
 }

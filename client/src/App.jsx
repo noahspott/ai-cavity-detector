@@ -29,14 +29,18 @@ function App() {
         headers: {
           'Content-Type': 'multipart/form-data' // Set the content type to multipart form-data
         },
-        responseType: 'arraybuffer' // Force to receive data in a Blob Format
+        responseType: 'application/json' // Force to receive data in a Blob Format
       })
       .then(response => {
         // Assuming the response is an array buffer and needs conversion to Blob
         
+        var responseData = JSON.parse(response.data)
         // Decode Image and pull out response data
-        var image = response.img
-        var responseData = response.results_data
+
+        //console.log(responseData)
+
+        var image = responseData.img.replace('b', '')
+        var dataInfo = responseData.results_data
 
         //var decodedImage = atob(image)
         //const byteNumbers = new Array(responseData.length)
@@ -45,12 +49,16 @@ function App() {
         //const blob = new Blob([response.data], { type: 'image/png' })
 
         // Create Image to display
-        const blob = image.blob()
-        const objectUrl = URL.createObjectURL(blob)
+        //const blob = image.blob()
+        //const objectUrl = URL.createObjectURL(blob)
+
+        var objectUrl = new Image()
+        objectUrl.src = image
+        console.log(objectUrl)
         setProcessedImageUrl(objectUrl)
 
         // Update Table Data
-        setTableData(responseData)
+        setTableData(dataInfo)
       })
       .catch(error => {
         console.error('Error:', error)
