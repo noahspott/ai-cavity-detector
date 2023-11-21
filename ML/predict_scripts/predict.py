@@ -1,8 +1,7 @@
-import torch
+import base64
+from io import BytesIO
 from PIL import Image
-from copy import deepcopy
 from ultralytics import YOLO
-from ultralytics.utils.plotting import Annotator, colors
 
 def bb_intersection_over_union(boxA, boxB):
     # determine the (x, y)-coordinates of the intersection rectangle
@@ -29,18 +28,11 @@ def bb_intersection_over_union(boxA, boxB):
     return iou
 
 
-def plot(
+def generate_results(
+    image,
     disease_result,
     enum_result,
-    line_width=4,
-    font_size=2,
-    font='Arial.ttf',
-    pil=False,
     ):
-
-    # Check if orig_img is in tensor format
-    if isinstance(disease_result.orig_img, torch.Tensor):
-        img = (disease_result.orig_img[0].detach().permute(1, 2, 0).contiguous() * 255).to(torch.uint8).cpu().numpy()
 
     # Names and labels for disease
     disease_names = disease_result.names
@@ -50,13 +42,11 @@ def plot(
     enum_names = enum_result.names
     enum_boxes = enum_result.boxes
 
-    annotator = Annotator(
-        deepcopy(disease_result.orig_img),
-        line_width,
-        font_size,
-        font,
-        pil,
-        example=disease_names)
+    results = {
+        'disease_classes' : disease_names,
+        'tooth_classes'   : enum_names,
+        'detections'      : []
+    }
 
     # List of tooth numbers that we want to actually show in detection
     should_detect = []
@@ -72,33 +62,45 @@ def plot(
                 highest = val
                 highestIOU = box2
 
-        c, conf, id = int(highestIOU.cls), float(highestIOU.conf), None if highestIOU.id is None else int(highestIOU.id.item())
+        c, conf = int(highestIOU.cls), float(highestIOU.conf)
         should_detect.append(enum_names[c])
-        disease_enum[c] = disease_names[int(box.cls)] + " - " + str(enum_names[c])
+
+        disease_enum[c] = {
+            'disease' : disease_names[int(box.cls)],
+            'enum' : str(enum_names[c])
+        }
+
         print("Matched " + disease_names[int(box.cls)] + " to " + str(enum_names[c]) + " with IOU " + str(highest))
     
     # Plot Detect results
     for d in reversed(enum_boxes):
-        c, conf, id = int(d.cls), float(d.conf), None if d.id is None else int(d.id.item())
+        c, conf = int(d.cls), float(d.conf)
         
         # Skip labeling this tooth if there is no disease detection on it
         if not (enum_names[c] in should_detect):
             continue
+            
+        bbox_list = d.xywh.tolist()[0]
 
-        name = ('' if id is None else f'id:{id} ') + disease_enum[c]
-        label = (f'{name} ({conf:.2f})')
-        annotator.box_label(d.xyxy.squeeze(), label, color=colors(c, True))
-    
-    return annotator.result()
+        results['detections'].append({
+            'disease'   : disease_enum[c]['disease'],
+            'tooth'     : disease_enum[c]['enum'],
+            'confidence': conf,
+            'coordinates' : {
+                'x'         : bbox_list[0],
+                'y'         : bbox_list[1],
+                'width'     : bbox_list[2],
+                'height'    : bbox_list[3]
+            }
+        })
+
+    return results
 
 def runPrediction(input):
     model_disease = YOLO('ML/models/Disease_Model_3.pt')
-    results_disease = model_disease(input, imgsz=1280, conf=0.5)
+    results_disease = model_disease(input, imgsz=1280, conf=0.5)[0]
 
     model_enum = YOLO('ML/models/Enumeration_Model.pt')
-    results_enum = model_enum(input, imgsz=1280, conf=0.5)
+    results_enum = model_enum(input, imgsz=1280, conf=0.5)[0]
 
-    im_array = plot(results_disease[0], results_enum[0])
-
-    im = Image.fromarray(im_array[..., ::-1])
-    return im
+    return generate_results(input, results_disease, results_enum)
