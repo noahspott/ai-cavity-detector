@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import BoundingBoxImage from './BoundingBoxImage'
 
 export default function Xray(props) {
 
@@ -8,12 +9,26 @@ export default function Xray(props) {
     // p-tags to display the x-ray analysis info
 
     // props
-    //      xrayImage - link to xray image from model
-    //      xrayData - data produced by model 
+    //      userImage   - File object from user input
+    //      xrayData    - data produced by model 
 
+    const [imageSrc, setImageSrc] = useState(null);
+
+    useEffect(() => {
+      if (props.userImage) {
+        // Read the File object as a data URL
+        const reader = new FileReader();
+        reader.onload = () => {
+          // Set the data URL as the image source
+          setImageSrc(reader.result);
+        };
+        reader.readAsDataURL(props.userImage);
+      }
+    }, [props.userImage]);
+    
     return(
-        <div id='xray-container'>
-            {props.processedImageUrl && <img id='xray-image' src={props.processedImageUrl} alt="processed image" />}
+        <div id='xray-container' width='40%'>
+            {imageSrc && <BoundingBoxImage imageUrl={imageSrc} boundingBoxes={props.xrayData} />}
         </div>
     )
 }
