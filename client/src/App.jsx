@@ -27,6 +27,7 @@ function App() {
     // TODO: make button unclickable if no userImage
 
     if(userImage){
+      document.getElementById('process-button').disabled = true
       setProcessed(false)
       
       const formData = new FormData();
@@ -40,10 +41,12 @@ function App() {
       .then(response => {
         setProcessed(true)
         setProcessedImageResults(response.data)
+        document.getElementById('process-button').disabled = false
       })
       .catch(error => {
         setProcessed(false)
         console.error('Error:', error)
+        document.getElementById('process-button').disabled = false
       })
     }
   }
@@ -54,16 +57,16 @@ function App() {
       <Hero />
       <div className='content-container'>
         <h2 id='action-text'>Try our <span className='blue'>AI Cavity Detection model</span><br/> trained on 1000+ Dental X-rays</h2>
-        <Upload 
+        <Upload
           userImage={userImage}
           setUserImage={setUserImage}
           processButtonClick={processButtonClick}
         />
         <br/>
         <LoadingOverlay
-            active={userImage != null && !processed}
-            spinner
-            text='Loading predictions...'
+          active={userImage != null && !processed}
+          spinner
+          text='Loading predictions...'
         >
           <Xray 
             userImage={userImage}
