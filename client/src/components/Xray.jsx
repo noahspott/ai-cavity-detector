@@ -30,6 +30,8 @@ export default function Xray(props) {
       }
     }, [props.userImage]);
     
+
+    // Force re-render predictions after window resize so our bounding boxes also resize accordingly
     useEffect(() => {
       const handleResize = () => {
         setWindowSize({
@@ -101,7 +103,7 @@ export default function Xray(props) {
                 }}/>
                 <ReactTooltip
                   id = {r.tooth}
-                  style={{width: finalBw}}
+                  style={{width: finalBw, zIndex: 99}}
                   place = "top"
                 >
                   <div style={{fontSize: '14px'}}>{r.tooth}</div>

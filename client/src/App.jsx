@@ -14,8 +14,10 @@ function App() {
   const [processedImageResults, setProcessedImageResults] = useState(null)
   
   useEffect(() => {
-    if(userImage != null)
+    if(userImage != null) {
+      setProcessedImageResults(null)
       setProcessed(true)
+    }
   }, [userImage]);
 
   const baseURL = 'http://127.0.0.1:5000'
@@ -26,6 +28,7 @@ function App() {
 
     if(userImage){
       setProcessed(false)
+      
       const formData = new FormData();
       formData.append('file', userImage, userImage.name)
   
@@ -56,6 +59,7 @@ function App() {
           setUserImage={setUserImage}
           processButtonClick={processButtonClick}
         />
+        <br/>
         <LoadingOverlay
             active={userImage != null && !processed}
             spinner
@@ -67,6 +71,7 @@ function App() {
             isProcessed={processed}
           />
         </LoadingOverlay>
+        <br/>
       </div>
       <Footer />
     </>
