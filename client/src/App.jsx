@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Upload from './components/Upload'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import Xray from './components/Xray'
 import Hero from './components/Hero'
+import LoadingOverlay from 'react-loading-overlay';
 
 function App() {
 
-  const [userImage, setUserImage] = React.useState(null)
-  const [processedImageResults, setProcessedImageResults] = React.useState(null)
+  const [userImage, setUserImage] = useState(null)
+  const [processed, setProcessed] = useState(false)
+  const [processedImageResults, setProcessedImageResults] = useState(null)
+  
+  useEffect(() => {
+    if(userImage != null)
+      setProcessed(true)
+  }, [userImage]);
 
   const baseURL = 'http://127.0.0.1:5000'
   const processEndPoint = '/process'
@@ -18,6 +25,7 @@ function App() {
     // TODO: make button unclickable if no userImage
 
     if(userImage){
+      setProcessed(false)
       const formData = new FormData();
       formData.append('file', userImage, userImage.name)
   
@@ -27,9 +35,11 @@ function App() {
         }
       })
       .then(response => {
+        setProcessed(true)
         setProcessedImageResults(response.data)
       })
       .catch(error => {
+        setProcessed(false)
         console.error('Error:', error)
       })
     }
@@ -46,10 +56,17 @@ function App() {
           setUserImage={setUserImage}
           processButtonClick={processButtonClick}
         />
-        <Xray 
-          userImage={userImage}
-          xrayData={processedImageResults}
-        />
+        <LoadingOverlay
+            active={userImage != null && !processed}
+            spinner
+            text='Loading predictions...'
+        >
+          <Xray 
+            userImage={userImage}
+            xrayData={processedImageResults}
+            isProcessed={processed}
+          />
+        </LoadingOverlay>
       </div>
       <Footer />
     </>

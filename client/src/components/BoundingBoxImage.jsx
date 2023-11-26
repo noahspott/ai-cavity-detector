@@ -28,7 +28,7 @@ const BoundingBoxImage = ({ imageUrl, boundingBoxes }) => {
 
         // Draw the image on the canvas
         ctx.drawImage(img, 0, 0, img.width, img.height);
-
+        
         // Don't draw bboxes if we haven't predicted yet
         if (!boundingBoxes || !boundingBoxes.detections) return;
 
@@ -63,7 +63,7 @@ const BoundingBoxImage = ({ imageUrl, boundingBoxes }) => {
               strokeColor = "#9649CB"
           }
 
-          ctx.font = "600 16px Arial";
+          ctx.font = "600 15px Arial";
           ctx.strokeStyle = "black";
           ctx.lineWidth = 3;
           ctx.strokeText(box.disease, finalBx - finalBw / 2, finalBy - finalBh / 2 - 16);
@@ -84,22 +84,25 @@ const BoundingBoxImage = ({ imageUrl, boundingBoxes }) => {
           );
           ctx.stroke();
 
+          let conf = " Conf: " + box.confidence.toFixed(2) * 100 + "%";
+          let boxWidth = Math.max(finalBw + 2, ctx.measureText(conf).width);
+          let boxPadding = (boxWidth == finalBw + 2 ? 0 : 6);
+
           ctx.beginPath();
           ctx.rect(
             finalBx - finalBw / 2 - 1,
             finalBy + finalBh / 2,
-            finalBw + 2,
+            boxWidth + boxPadding,
             18
           );
           ctx.fill();
 
-          ctx.font = "600 16px Arial";
+          ctx.font = "600 15px Arial";
           ctx.strokeStyle = "black";
           ctx.lineWidth = 3;
-          let conf = "Conf: " + box.confidence.toFixed(2) * 100 + "%";
-          ctx.strokeText(conf, finalBx + finalBw / 2 - ctx.measureText(conf).width - 2, finalBy + finalBh / 2 + 14);
+          ctx.strokeText(conf, finalBx - finalBw / 2, finalBy + finalBh / 2 + 14);
           ctx.fillStyle = strokeColor;
-          ctx.fillText(conf, finalBx + finalBw / 2 - ctx.measureText(conf).width - 2, finalBy + finalBh / 2 + 14);
+          ctx.fillText(conf, finalBx - finalBw / 2, finalBy + finalBh / 2 + 14);
         });
       };
     };
@@ -107,7 +110,9 @@ const BoundingBoxImage = ({ imageUrl, boundingBoxes }) => {
     drawBoundingBoxes();
   }, [imageUrl, boundingBoxes]);
 
-  return <canvas id="result" ref={imageRef} />;
+  return <canvas id="result" ref={imageRef} style={{position: 'relative'}}>
+    <div style={{backgroundColor: 'red', position: 'absolute', width: '50px', height: '50px'}}></div>  
+  </canvas>;
 };
 
 export default BoundingBoxImage;
