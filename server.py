@@ -1,8 +1,7 @@
+#!/usr/bin/env python3
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS, cross_origin
-import sys
 from PIL import Image
-# import ML.train_scripts.predict as predict
 from ML.predict_scripts.predict import runPrediction
 
 app = Flask(__name__)
