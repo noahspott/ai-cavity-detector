@@ -7,4 +7,3 @@ Flask_Cors==4.0.0
 Pillow==10.1.0
 ultralytics==8.0.208
 gunicorn
-opencv-python-headless
