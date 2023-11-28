@@ -12,6 +12,10 @@ def process_image(input_image):
     img = Image.open(input_image)
     return runPrediction(img)
 
+@app.route('/')
+def index():
+    return "Hello World"
+
 @app.route('/process', methods=['POST'])
 @cross_origin()
 def process_request():
@@ -29,4 +33,4 @@ def process_request():
     
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port="8000", debug=True)
