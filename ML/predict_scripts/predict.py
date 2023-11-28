@@ -1,6 +1,3 @@
-import base64
-from io import BytesIO
-from PIL import Image
 from ultralytics import YOLO
 
 def bb_intersection_over_union(boxA, boxB):
