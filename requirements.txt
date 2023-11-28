@@ -2,7 +2,6 @@
 torch==2.1.0+cpu
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torchvision==0.16.0+cpu
-opencv-python-headless
 Flask==3.0.0
 Flask_Cors==4.0.0
 Pillow==10.1.0
