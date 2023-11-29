@@ -21,7 +21,10 @@ function App() {
   }, [userImage]);
 
   // Azure VM
-  const baseURL = 'http://172.203.184.169'
+  const azureBaseURL = 'http://172.203.184.169'   // Azure URL for deployment
+  const localBaseURL = 'http://127.0.0.1:5000'    // local URL for testing
+
+  const baseURL = localBaseURL                    // switch this to azureBaseURL for deployment!
   const processEndPoint = '/process'
 
   function processButtonClick() {
@@ -57,13 +60,17 @@ function App() {
       <Header />
       <Hero />
       <div className='content-container'>
+
         <h2 id='action-text'>Try our <span className='blue'>AI Cavity Detection model</span><br/> trained on 1000+ Dental X-rays</h2>
+
         <Upload
           userImage={userImage}
           setUserImage={setUserImage}
           processButtonClick={processButtonClick}
         />
-        <br/>
+
+        <div className="spacer"></div>
+
         <LoadingOverlay
           active={userImage != null && !processed}
           spinner
@@ -75,7 +82,9 @@ function App() {
             isProcessed={processed}
           />
         </LoadingOverlay>
-        <br/>
+
+        <div className="spacer"></div>
+
       </div>
       <Footer />
     </>

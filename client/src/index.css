@@ -76,6 +76,10 @@ p {
   background-color: white;
 }
 
+.spacer {
+  height: 1rem;
+}
+
 #action-text {
   margin: 2em 0;
   text-align: center;
