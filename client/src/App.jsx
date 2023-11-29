@@ -10,13 +10,13 @@ import LoadingOverlay from 'react-loading-overlay';
 function App() {
 
   const [userImage, setUserImage] = useState(null)
-  const [processed, setProcessed] = useState(false)
+  const [isProcessed, setIsProcessed] = useState(false)
   const [processedImageResults, setProcessedImageResults] = useState(null)
   
   useEffect(() => {
     if(userImage != null) {
       setProcessedImageResults(null)
-      setProcessed(true)
+      setIsProcessed(true)
     }
   }, [userImage]);
 
@@ -32,7 +32,7 @@ function App() {
 
     if(userImage){
       document.getElementById('process-button').disabled = true
-      setProcessed(false)
+      setIsProcessed(false)
       
       const formData = new FormData();
       formData.append('file', userImage, userImage.name)
@@ -43,12 +43,12 @@ function App() {
         }
       })
       .then(response => {
-        setProcessed(true)
+        setIsProcessed(true)
         setProcessedImageResults(response.data)
         document.getElementById('process-button').disabled = false
       })
       .catch(error => {
-        setProcessed(false)
+        setIsProcessed(false)
         console.error('Error:', error)
         document.getElementById('process-button').disabled = false
       })
@@ -72,14 +72,14 @@ function App() {
         <div className="spacer"></div>
 
         <LoadingOverlay
-          active={userImage != null && !processed}
+          active={userImage != null && !isProcessed}
           spinner
           text='Loading predictions...'
         >
           <Xray 
             userImage={userImage}
             xrayData={processedImageResults}
-            isProcessed={processed}
+            isProcessed={isProcessed}
           />
         </LoadingOverlay>
 
