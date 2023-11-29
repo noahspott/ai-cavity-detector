@@ -11,9 +11,6 @@ output image showing the areas of cavities.
 - Mason Ticehurst
 - Keian Kaserman
 
-## Demo
-![](https://s5.gifyu.com/images/SRtsQ.gif)
-
 ## Project Requirements
 ### fr-01
 The system should allow the user to upload an X-ray image or a folder of X-ray images.
@@ -49,3 +46,8 @@ The system should preprocess the uploaded images to enhance image quality, reduc
 <pre>
 python3 ./server/server.py
 </pre>
+
+## Demo
+<p align="center">
+  <img src="https://s5.gifyu.com/images/SRtsQ.gif" alt="animated" />
+</p>
