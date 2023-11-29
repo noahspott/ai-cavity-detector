@@ -11,6 +11,9 @@ output image showing the areas of cavities.
 - Mason Ticehurst
 - Keian Kaserman
 
+## Demo
+![](https://s5.gifyu.com/images/SRtsQ.gif)
+
 ## Project Requirements
 ### fr-01
 The system should allow the user to upload an X-ray image or a folder of X-ray images.
