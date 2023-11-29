@@ -250,6 +250,14 @@ p {
   width: 100%;
 }
 
+.bounding-box {
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.bounding-box:hover {
+  opacity: 1;
+}
+
 /*----------*/
 /*  FOOTER  */
 /*----------*/

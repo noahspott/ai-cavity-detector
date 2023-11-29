@@ -81,7 +81,7 @@ export default function Xray(props) {
               }
 
               return (<>
-                <div data-tooltip-id={r.tooth} style={{
+                <div className="bounding-box" data-tooltip-id={r.tooth} style={{
                   position: 'absolute',
                   border: 'solid',
                   borderRadius: '3px',

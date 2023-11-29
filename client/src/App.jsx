@@ -77,7 +77,6 @@ function App() {
         <div className="spacer-sm"></div>
 
         <LoadingOverlay
-          // active={userImage != null && isProcessed}
           active={isLoading}
           spinner
           text='Loading predictions...'
