@@ -3,15 +3,6 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export default function Xray(props) {
 
-    // Let's assume we get a JSON object  from props
-    // that contains the model output
-    // we can parse that data and generate the appropriate number of 
-    // p-tags to display the x-ray analysis info
-
-    // props
-    //      userImage   - File object from user input
-    //      xrayData    - data produced by model 
-
     const [imageSrc, setImageSrc] = useState(null);
     const [windowSize, setWindowSize] = useState({
       width: window.innerWidth,
@@ -101,13 +92,14 @@ export default function Xray(props) {
                   left: finalBx,
                   top: finalBy
                 }}/>
+                {/* Description box for affected teeth */}
                 <ReactTooltip
                   id = {r.tooth}
-                  style={{width: finalBw, zIndex: 99}}
+                  style={{zIndex: 99}}
                   place = "top"
                 >
-                  <div style={{fontSize: '14px'}}>{r.tooth}</div>
-                  <div style={{fontSize: '18px'}}>{r.disease}</div>
+                  <div style={{fontSize: '0.5rem'}}>{r.tooth}</div>
+                  <div style={{fontSize: '1rem'}}>{r.disease}</div>
                 </ReactTooltip>
               </>)
             })}
