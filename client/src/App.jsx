@@ -20,7 +20,8 @@ function App() {
     }
   }, [userImage]);
 
-  const baseURL = 'http://127.0.0.1:5000'
+  // Azure VM
+  const baseURL = 'http://172.203.184.169'
   const processEndPoint = '/process'
 
   function processButtonClick() {
