@@ -76,8 +76,12 @@ p {
   background-color: white;
 }
 
-.spacer {
+.spacer-sm {
   height: 1rem;
+}
+
+.spacer-lg {
+  height: 2rem;
 }
 
 #action-text {
@@ -85,6 +89,12 @@ p {
   text-align: center;
   color: var(--off-black);
   font-size: 1.1em;
+}
+
+.instruction-text {
+  font-size: 0.7rem;
+  color: var(--off-black);
+  font-style: italic;
 }
 
 /*----------*/

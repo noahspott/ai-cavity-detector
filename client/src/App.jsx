@@ -8,31 +8,31 @@ import Hero from './components/Hero'
 import LoadingOverlay from 'react-loading-overlay';
 
 function App() {
+  const azureBaseURL = 'http://172.203.184.169'   // Azure URL for deployment
+  const localBaseURL = 'http://127.0.0.1:5000'    // local URL for testing
+  const processEndPoint = '/process'
+
+  const baseURL = localBaseURL                    // switch this to azureBaseURL for deployment!
 
   const [userImage, setUserImage] = useState(null)
   const [isProcessed, setIsProcessed] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [processedImageResults, setProcessedImageResults] = useState(null)
   
   useEffect(() => {
     if(userImage != null) {
       setProcessedImageResults(null)
-      setIsProcessed(true)
+      setIsLoading(false)
     }
   }, [userImage]);
-
-  // Azure VM
-  const azureBaseURL = 'http://172.203.184.169'   // Azure URL for deployment
-  const localBaseURL = 'http://127.0.0.1:5000'    // local URL for testing
-
-  const baseURL = localBaseURL                    // switch this to azureBaseURL for deployment!
-  const processEndPoint = '/process'
 
   function processButtonClick() {
     // TODO: make button unclickable if no userImage
 
     if(userImage){
       document.getElementById('process-button').disabled = true
-      setIsProcessed(false)
+      // setIsProcessed(false)
+      setIsLoading(true)
       
       const formData = new FormData();
       formData.append('file', userImage, userImage.name)
@@ -44,6 +44,7 @@ function App() {
       })
       .then(response => {
         setIsProcessed(true)
+        setIsLoading(false)
         setProcessedImageResults(response.data)
         document.getElementById('process-button').disabled = false
       })
@@ -69,10 +70,15 @@ function App() {
           processButtonClick={processButtonClick}
         />
 
-        <div className="spacer"></div>
+        <div className="spacer-lg"></div>
+
+        {isProcessed && <p className="instruction-text">Hover over the boxes for tooth info.</p>}
+
+        <div className="spacer-sm"></div>
 
         <LoadingOverlay
-          active={userImage != null && !isProcessed}
+          // active={userImage != null && isProcessed}
+          active={isLoading}
           spinner
           text='Loading predictions...'
         >
@@ -83,7 +89,7 @@ function App() {
           />
         </LoadingOverlay>
 
-        <div className="spacer"></div>
+        <div className="spacer-lg"></div>
 
       </div>
       <Footer />
