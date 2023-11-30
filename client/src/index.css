@@ -63,6 +63,10 @@ p {
   font-size: 0.6rem;
 }
 
+.off-black {
+  color: var(--off-black);
+}
+
 .blue {
   color: var(--accent-blue);
 }
@@ -94,6 +98,26 @@ p {
   align-items: center;
   
   background-color: white;
+}
+
+.text-lg {
+  font-size: 1.2rem;
+}
+
+.text-md {
+  font-size: 1rem;
+}
+
+.text-sm {
+  font-size: 0.8rem;
+}
+
+.caps {
+  text-transform: uppercase;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 .spacer-sm {
@@ -291,7 +315,7 @@ p {
 /*--------------*/
 
 .tooth-card-container {
-
+  line-height: 1rem;
 }
 
 .tooth-card {
@@ -309,8 +333,6 @@ p {
 
   font-size: 32px;
 }
-
-
 
 /*----------*/
 /*  FOOTER  */
