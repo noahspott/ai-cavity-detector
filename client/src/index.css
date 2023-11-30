@@ -14,11 +14,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* background-color: grey; */
-
   --accent-blue: #3188ED; 
   --off-black: #505050;
   --off-black-darker: #131D2B;
+
+  /* Bounding Box Colors */
+  --impacted: #43AA8B;
+  --caries: #FF6F59;
+  --deep-caries: #E9153C;
+  --periapical-lesion: #9649CB;
 }
 
 #root {
@@ -61,6 +65,22 @@ p {
 
 .blue {
   color: var(--accent-blue);
+}
+
+.impacted {
+  color: var(--impacted);
+}
+
+.caries {
+  color: var(--caries);
+}
+
+.deep-caries {
+  color: var(--deep-caries);
+}
+
+.periapical-lesion {
+  color: var(--periapical-lesion);
 }
 
 .content-container {
@@ -184,7 +204,6 @@ p {
 }
 
 #upload-tooth-image {
-
   margin-bottom: 0.5em;
 
   width: 3em;
@@ -192,6 +211,13 @@ p {
 
   background: url(<path-to-image>), lightgray 50% / cover no-repeat;
   mix-blend-mode: darken;
+
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+#upload-tooth-image:hover {
+  opacity: 1;
 }
 
 #process-button {
