@@ -284,6 +284,34 @@ p {
   opacity: 1;
 }
 
+
+
+/*--------------*/
+/*  CARD TABLE  */
+/*--------------*/
+
+.tooth-card-container {
+
+}
+
+.tooth-card {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  min-width: 290px;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 14px;
+  filter: drop-shadow(2px 10px 40px rgba(0, 0, 0, 0.15));
+
+  box-shadow: 2px 10px 40px rgba(0, 0, 0, 0.15);
+
+  font-size: 32px;
+}
+
+
+
 /*----------*/
 /*  FOOTER  */
 /*----------*/

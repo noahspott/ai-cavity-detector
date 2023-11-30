@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Xray from './components/Xray'
 import Hero from './components/Hero'
 import LoadingOverlay from 'react-loading-overlay';
+import CardDataTable from './components/CardDataTable'
 
 function App() {
   const azureBaseURL = 'http://172.203.184.169'   // Azure URL for deployment
@@ -27,11 +28,9 @@ function App() {
   }, [userImage]);
 
   function processButtonClick() {
-    // TODO: make button unclickable if no userImage
 
     if(userImage){
       document.getElementById('process-button').disabled = true
-      // setIsProcessed(false)
       setIsLoading(true)
       
       const formData = new FormData();
@@ -62,7 +61,9 @@ function App() {
       <Hero />
       <div className='content-container'>
 
-        <h2 id='action-text'>Try our <span className='blue'>AI Cavity Detection model</span><br/> trained on 1000+ Dental X-rays</h2>
+        <h2 id='action-text'>
+          Try our <span className='blue'>AI Cavity Detection model</span><br/> trained on 1000+ Dental X-rays
+        </h2>
 
         <Upload
           userImage={userImage}
@@ -72,9 +73,13 @@ function App() {
 
         <div className="spacer-lg"></div>
 
-        {isProcessed && <p className="instruction-text">Hover over the boxes for tooth info.</p>}
-
-        <div className="spacer-sm"></div>
+        {/* Instructions */}
+        {isProcessed && 
+          <>
+            <p className="instruction-text">Hover over the boxes for tooth info.</p>
+            <div className="spacer-sm"></div>
+          </>
+        }
 
         <LoadingOverlay
           active={isLoading}
@@ -87,6 +92,16 @@ function App() {
             isProcessed={isProcessed}
           />
         </LoadingOverlay>
+
+        {/* Table to display tooth information */}
+        {isProcessed && 
+          <>
+            <div className="spacer-sm"></div>
+            <CardDataTable 
+              toothData={processedImageResults.detections}
+            />
+          </>
+        }
 
         <div className="spacer-lg"></div>
 
