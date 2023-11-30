@@ -16,6 +16,11 @@ function App() {
   const baseURL = localBaseURL                    // for testing
   //const baseURL = azureBaseURL                    // for deployment
 
+  const deepCariesColor = '#E9153C'
+  const cariesColor = '#FF6F59'
+  const impactedColor = '#43AA8B'
+  const periapicalLesionColor = '#9649CB'
+
   const [userImage, setUserImage] = useState(null)      // file object
   const [isProcessed, setIsProcessed] = useState(false) // true when predictions are ready
   const [isLoading, setIsLoading] = useState(false)     // true when waiting for predictions
@@ -84,16 +89,16 @@ function App() {
         // Set box color based on disease type
         switch (disease) {
           case 'Caries':
-            context.strokeStyle = '#FF6F59'
+            context.strokeStyle = cariesColor
             break
           case 'Deep Caries':
-            context.strokeStyle = '#E9153C'
+            context.strokeStyle = deepCariesColor
             break
           case 'Impacted':
-            context.strokeStyle = '#43AA8B'
+            context.strokeStyle = impactedColor
             break
           case 'Periapical Lesion':
-            context.strokeStyle = '#9649CB'
+            context.strokeStyle = periapicalLesionColor
             break
           default:
             context.strokeStyle = 'black'
@@ -117,6 +122,50 @@ function App() {
       downloadLink.click()
     }
   }
+
+  function drawLegend(canvas, context) {
+    // Draw legend background card
+    const legendCardX = canvas.width - 130;
+    const legendCardY = canvas.height - 110;
+    const legendCardWidth = 120;
+    const legendCardHeight = 100;
+
+    context.fillStyle = 'white';
+    context.fillRect(legendCardX, legendCardY, legendCardWidth, legendCardHeight);
+
+    // Draw legend
+    const legendX = canvas.width - 120;
+    const legendY = canvas.height - 80;
+    const legendSpacing = 25;
+
+    drawLegendCircle(context, legendX, legendY, cariesColor);
+    drawLegendText(context, legendX + 20, legendY + 5, 'Caries');
+
+    drawLegendCircle(context, legendX, legendY + legendSpacing, deepCariesColor);
+    drawLegendText(context, legendX + 20, legendY + legendSpacing + 5, 'Deep Caries');
+
+    drawLegendCircle(context, legendX, legendY + 2 * legendSpacing, impactedColor);
+    drawLegendText(context, legendX + 20, legendY + 2 * legendSpacing + 5, 'Impacted');
+
+    drawLegendCircle(context, legendX, legendY + 3 * legendSpacing, periapicalLesionColor);
+    drawLegendText(context, legendX + 20, legendY + 3 * legendSpacing + 5, 'Periapical Lesion');
+  }
+
+  const drawLegendCircle = (context, x, y, color) => {
+    context.beginPath();
+    context.arc(x, y, 8, 0, 2 * Math.PI);
+    context.fillStyle = color;
+    context.fill();
+    context.lineWidth = 2;
+    context.strokeStyle = 'black';
+    context.stroke();
+  };
+  
+  const drawLegendText = (context, x, y, text) => {
+    context.fillStyle = 'black';
+    context.font = '12px Arial';
+    context.fillText(text, x, y);
+  };
 
   return (
     <>
@@ -161,7 +210,11 @@ function App() {
           <>
             <div className="spacer-sm"></div>
             
-            <button onClick={() => downloadButtonClick(userImage, processedImageResults.detections)} className="process-button">Download</button>
+            <button 
+              onClick={() => downloadButtonClick(userImage, processedImageResults.detections)} 
+              className="process-button text-sm">
+                Download
+            </button>
 
             <div className="spacer-sm"></div>
 
