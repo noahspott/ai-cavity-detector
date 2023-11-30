@@ -13,8 +13,8 @@ function App() {
   const localBaseURL = 'http://127.0.0.1:5000'    // local URL for testing
   const processEndPoint = '/process'
 
-  const baseURL = localBaseURL                    // for testing
-  //const baseURL = azureBaseURL                    // for deployment
+  //const baseURL = localBaseURL                    // for testing
+  const baseURL = azureBaseURL                    // for deployment
 
   const deepCariesColor = '#E9153C'
   const cariesColor = '#FF6F59'
