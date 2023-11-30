@@ -26,7 +26,7 @@ export default function FileUpload(props) {
                     />
                 </label>
             </div>
-            <button onClick={props.processButtonClick} id='process-button'>Process</button>
+            <button onClick={props.processButtonClick} id="process-button">Process</button>
         </div>
     )
 }

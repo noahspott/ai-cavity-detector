@@ -13,11 +13,13 @@ function App() {
   const localBaseURL = 'http://127.0.0.1:5000'    // local URL for testing
   const processEndPoint = '/process'
 
-  const baseURL = localBaseURL                    // switch this to azureBaseURL for deployment!
+  const baseURL = localBaseURL                    // for testing
+  //const baseURL = azureBaseURL                    // for deployment
 
-  const [userImage, setUserImage] = useState(null)
-  const [isProcessed, setIsProcessed] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+
+  const [userImage, setUserImage] = useState(null)      // file object
+  const [isProcessed, setIsProcessed] = useState(false) // true when predictions are ready
+  const [isLoading, setIsLoading] = useState(false)     // true when waiting for predictions
   const [processedImageResults, setProcessedImageResults] = useState(null)
   
   useEffect(() => {
@@ -53,6 +55,17 @@ function App() {
         document.getElementById('process-button').disabled = false
       })
     }
+  }
+
+  function downloadButtonClick() {
+    const url = URL.createObjectURL(userImage);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = userImage.name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   return (
@@ -93,10 +106,14 @@ function App() {
           />
         </LoadingOverlay>
 
-        {/* Table to display tooth information */}
         {isProcessed && 
           <>
             <div className="spacer-sm"></div>
+            
+            {/* <button onClick={downloadButtonClick} className="process-button">Download</button>
+
+            <div className="spacer-sm"></div> */}
+
             <CardDataTable 
               toothData={processedImageResults.detections}
             />

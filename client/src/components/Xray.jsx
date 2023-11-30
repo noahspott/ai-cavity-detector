@@ -21,7 +21,6 @@ export default function Xray(props) {
       }
     }, [props.userImage]);
     
-
     // Force re-render predictions after window resize so our bounding boxes also resize accordingly
     useEffect(() => {
       const handleResize = () => {
