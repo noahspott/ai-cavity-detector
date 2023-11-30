@@ -16,11 +16,11 @@ function App() {
   const baseURL = localBaseURL                    // for testing
   //const baseURL = azureBaseURL                    // for deployment
 
-
   const [userImage, setUserImage] = useState(null)      // file object
   const [isProcessed, setIsProcessed] = useState(false) // true when predictions are ready
   const [isLoading, setIsLoading] = useState(false)     // true when waiting for predictions
-  const [processedImageResults, setProcessedImageResults] = useState(null)
+  const [processedImageResults, setProcessedImageResults] = useState(null)  // object containing predictions
+  const [processedImage, setProcessedImage] = useState(null)  // drawn image with bounding boxes
   
   useEffect(() => {
     if(userImage != null) {
@@ -57,15 +57,65 @@ function App() {
     }
   }
 
-  function downloadButtonClick() {
-    const url = URL.createObjectURL(userImage);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = userImage.name;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  const downloadButtonClick = (userImage, detections) => {
+
+    console.log(processedImageResults)
+    console.log(detections)
+
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+  
+    const image = new Image()
+    image.src = URL.createObjectURL(userImage)
+  
+    image.onload = () => {
+      // Set canvas dimensions to match the image
+      canvas.width = image.width
+      canvas.height = image.height
+  
+      // Draw the original image
+      context.drawImage(image, 0, 0)
+  
+      // Draw boxes based on detections
+      detections.forEach((detection) => {
+        const { coordinates, disease } = detection
+        const { x, y, width, height } = coordinates
+  
+        // Set box color based on disease type
+        switch (disease) {
+          case 'Caries':
+            context.strokeStyle = '#FF6F59'
+            break
+          case 'Deep Caries':
+            context.strokeStyle = '#E9153C'
+            break
+          case 'Impacted':
+            context.strokeStyle = '#43AA8B'
+            break
+          case 'Periapical Lesion':
+            context.strokeStyle = '#9649CB'
+            break
+          default:
+            context.strokeStyle = 'black'
+        }
+
+        // x and y are the center of the box, so we need to offset by half the width and height
+        let newX = x - (width / 2)
+        let newY = y - (height / 2)
+  
+        // Draw the box
+        context.beginPath()
+        context.rect(newX, newY, width, height)
+        context.lineWidth = 2
+        context.stroke()
+      })
+  
+      // Trigger the download
+      const downloadLink = document.createElement('a')
+      downloadLink.href = canvas.toDataURL()
+      downloadLink.download = 'annotated_image.png'
+      downloadLink.click()
+    }
   }
 
   return (
@@ -103,6 +153,7 @@ function App() {
             userImage={userImage}
             xrayData={processedImageResults}
             isProcessed={isProcessed}
+            setProcessedImage={setProcessedImage}
           />
         </LoadingOverlay>
 
@@ -110,9 +161,9 @@ function App() {
           <>
             <div className="spacer-sm"></div>
             
-            {/* <button onClick={downloadButtonClick} className="process-button">Download</button>
+            <button onClick={() => downloadButtonClick(userImage, processedImageResults.detections)} className="process-button">Download</button>
 
-            <div className="spacer-sm"></div> */}
+            <div className="spacer-sm"></div>
 
             <CardDataTable 
               toothData={processedImageResults.detections}

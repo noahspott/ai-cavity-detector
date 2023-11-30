@@ -347,7 +347,7 @@ button:disabled {
   justify-content: center;
   flex-direction: column;
 
-  padding-bottom: 1rem;
+  padding: 0.5rem 0 2rem 0;
 
   color: white;
   background-color: var(--off-black-darker);

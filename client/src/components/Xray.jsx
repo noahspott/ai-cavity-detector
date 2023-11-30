@@ -39,7 +39,9 @@ export default function Xray(props) {
 
     return(
         <div id='xray-container' width='30%' style={{position: 'relative', margin: 0, padding: 0}}>
+          
             {imageSrc && <img src={imageSrc} style={{width: '100%'}} id="xray-img"/>}
+
             {props.xrayData && props.xrayData.detections && props.xrayData.detections.map(r => {
               var origWidth = document.getElementById("xray-img").naturalWidth
               var origHeight = document.getElementById("xray-img").naturalHeight
