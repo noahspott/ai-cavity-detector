@@ -373,15 +373,18 @@ p {
   margin-top: 0.4rem;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 641px) {
   /* CSS rules for screens up to 768px wide (e.g., mobile) */
+  html {
+    font-size: 20px;
+  }
   
 }
 
 /* CSS rules for screens between 769px and 1024px wide (e.g., tablet) */
 @media screen and (min-width: 769px){
   html {
-    font-size: 32px;
+    font-size: 24px;
   }
 
   .content-container {
@@ -393,9 +396,9 @@ p {
   }
 }
 
-
 /* CSS rules for screens wider than 1024px (e.g., desktop) */
-/*
 @media screen and (min-width: 1025px) {
+  html {
+    font-size: 32px;
+  }
 }
-*/
