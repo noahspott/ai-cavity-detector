@@ -63,10 +63,6 @@ function App() {
   }
 
   const downloadButtonClick = (userImage, detections) => {
-
-    console.log(processedImageResults)
-    console.log(detections)
-
     const canvas = document.createElement('canvas')
     const context = canvas.getContext('2d')
   
@@ -80,7 +76,10 @@ function App() {
   
       // Draw the original image
       context.drawImage(image, 0, 0)
-  
+      
+      // If no detection object present, skip any bounding box drawing
+      if(!detections) return;
+      
       // Draw boxes based on detections
       detections.forEach((detection) => {
         const { coordinates, disease } = detection
